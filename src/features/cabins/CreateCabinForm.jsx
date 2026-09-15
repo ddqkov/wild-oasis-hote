@@ -15,7 +15,7 @@ import FormRow from "@/ui/FormRow";
 import Input from "@/ui/Input";
 import Textarea from "@/ui/Textarea";
 
-function CreateCabinForm({ editedCabin = {}, setShowForm = false }) {
+function CreateCabinForm({ editedCabin = {}, onCloseModal }) {
 	const { isCreating, createCabin } = useCreateCabin();
 	const { isEditing, editCabin } = useEditCabin();
 
@@ -33,12 +33,22 @@ function CreateCabinForm({ editedCabin = {}, setShowForm = false }) {
 			typeof data.image === "string" ? data.image : data.image[0];
 
 		if (isEditSession) {
-			editCabin({ newCabinData: { ...data, image }, id: editedCabinID });
+			editCabin(
+				{ newCabinData: { ...data, image }, id: editedCabinID },
+				{
+					onSuccess: () => {
+						onCloseModal?.();
+					},
+				},
+			);
 		} else
 			createCabin(
 				{ ...data, image: image },
 				{
-					onSuccess: () => reset(),
+					onSuccess: () => {
+						reset();
+						onCloseModal?.();
+					},
 				},
 			);
 	}
@@ -130,11 +140,10 @@ function CreateCabinForm({ editedCabin = {}, setShowForm = false }) {
 			</FormRow>
 
 			<FormRow>
-				{/* type is an HTML attribute! */}
 				<Button
 					variation="secondary"
 					type="reset"
-					onClick={() => setShowForm(false)}
+					onClick={() => onCloseModal?.()}
 				>
 					Close
 				</Button>
