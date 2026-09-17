@@ -12,21 +12,24 @@ import Sidebar from "@/ui/Sidebar";
 import styled from "styled-components";
 
 const StyledAppLayout = styled.div`
-	display: grid;
-	grid-template-columns: 26rem 1fr;
-	grid-template-rows: auto 1fr;
-	height: 100svh;
+	min-height: 100svh;
 `;
 
 const Main = styled.main`
 	background-color: var(--color-grey-50);
 	padding: 4rem 4.8rem 6.4rem;
-	overflow-y: auto;
+	max-width: calc(100% - 26rem);
+	width: 100%;
+	padding-top: 4.9rem;
+	margin-left: auto;
+	min-height: 100svh;
+	height: 100%;
 `;
 
 const Container = styled.main`
 	max-width: 120rem;
 	margin: 0 auto;
+	padding-top: 4.9rem;
 `;
 
 export default function AppLayout() {

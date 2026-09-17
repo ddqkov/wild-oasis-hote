@@ -17,6 +17,13 @@ const StyledSidebar = styled.aside`
 	display: flex;
 	flex-direction: column;
 	gap: 3.2rem;
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: 100%;
+	overflow-y: auto;
+	max-width: 26rem;
+	width: 100%;
 `;
 export default function Sidebar() {
 	return (
