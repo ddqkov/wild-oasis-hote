@@ -6,6 +6,7 @@ import styled from "styled-components";
 /**
  * Internal dependencies.
  */
+import Uploader from "@/data/Uploader";
 import Logo from "@/ui/Logo";
 import MainNav from "@/ui/MainNav";
 
@@ -30,6 +31,7 @@ export default function Sidebar() {
 		<StyledSidebar>
 			<Logo></Logo>
 			<MainNav></MainNav>
+			<Uploader></Uploader>
 		</StyledSidebar>
 	);
 }

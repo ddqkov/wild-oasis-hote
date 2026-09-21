@@ -20,6 +20,12 @@ const Row = styled.div`
 			flex-direction: column;
 			gap: 1.6rem;
 		`}
+
+	${(props) =>
+		props.space === "space-between" &&
+		css`
+			justify-content: space-between;
+		`}
 `;
 
 Row.defaultProps = {
