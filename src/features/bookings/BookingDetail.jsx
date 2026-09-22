@@ -7,6 +7,7 @@ import styled from "styled-components";
 /**
  * Internal dependencies.
  */
+import CheckoutButton from "@/features/check-in-out/CheckoutButton";
 import Button from "@/ui/Button";
 import ButtonGroup from "@/ui/ButtonGroup";
 import ButtonText from "@/ui/ButtonText";
@@ -63,6 +64,13 @@ function BookingDetail() {
 						Check in
 					</Button>
 				)}
+
+				{status === "checked-in" && (
+					<CheckoutButton bookingId={bookingId}>
+						Check out booking #{bookingId}
+					</CheckoutButton>
+				)}
+
 				<Button variation="secondary" onClick={moveBack}>
 					Back
 				</Button>

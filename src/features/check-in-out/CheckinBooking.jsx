@@ -36,7 +36,9 @@ const Box = styled.div`
 function CheckinBooking() {
 	const [confirmPaid, setConfirmPaid] = useState(false);
 	const [addBreakfast, setAddBreakfast] = useState(false);
+
 	const { bookingId: currentBookingId } = useParams();
+
 	const { booking, isLoading } = useBooking(currentBookingId);
 	const { settingsData, isLoading: isLoadingSettings } = useSettings();
 
@@ -47,6 +49,8 @@ function CheckinBooking() {
 	const moveBack = useMoveBack();
 	const { checkin, isCheckingIn } = useCheckin();
 
+	console.log(booking);
+
 	if (isLoading || isLoadingSettings) return <Spinner />;
 
 	const {
@@ -56,6 +60,7 @@ function CheckinBooking() {
 		numGuests,
 		hasBreakfast,
 		numNights,
+		status,
 	} = booking;
 
 	const breakfastPrice = settingsData?.breakfastPrice * numNights * numGuests;
@@ -64,12 +69,6 @@ function CheckinBooking() {
 		if (!confirmPaid) return;
 
 		if (addBreakfast) {
-			console.log({
-				hasBreakfast: true,
-				extrasPrice: breakfastPrice,
-				totalPrice: totalPrice + breakfastPrice,
-			});
-
 			checkin({
 				bookingId,
 				breakfast: {
