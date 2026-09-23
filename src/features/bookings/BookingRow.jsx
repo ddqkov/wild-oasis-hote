@@ -145,7 +145,6 @@ function BookingRow({
 							resourceName={bookingId}
 							disabled={isDeleting}
 							onConfirm={() => {
-								console.log(bookingId);
 								deleteBooking(bookingId);
 							}}
 						/>

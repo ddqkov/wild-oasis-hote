@@ -49,8 +49,6 @@ function CheckinBooking() {
 	const moveBack = useMoveBack();
 	const { checkin, isCheckingIn } = useCheckin();
 
-	console.log(booking);
-
 	if (isLoading || isLoadingSettings) return <Spinner />;
 
 	const {
