@@ -13,11 +13,9 @@ import Input from "@/ui/Input";
 import SpinnerMini from "@/ui/SpinnerMini";
 import { useForm } from "react-hook-form";
 
-// Email regex: /\S+@\S+\.\S+/
-
 function SignupForm() {
 	const { signUp, isSigningUp } = useSignup();
-	const { register, formState, getValues, handleSubmit } = useForm();
+	const { register, formState, getValues, handleSubmit, reset } = useForm();
 	const { errors } = formState;
 
 	function onSubmit({ fullName, email, password }) {
@@ -84,8 +82,7 @@ function SignupForm() {
 			</FormRow>
 
 			<FormRow>
-				{/* type is an HTML attribute! */}
-				<Button variation="secondary" type="reset">
+				<Button variation="secondary" type="reset" onClick={reset}>
 					Cancel
 				</Button>
 				<Button>

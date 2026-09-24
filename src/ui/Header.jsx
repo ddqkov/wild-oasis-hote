@@ -7,7 +7,8 @@ import styled from "styled-components";
 /**
  * Internal dependencies.
  */
-import Logout from "@/features/authentication/Logout";
+import UserAvatar from "@/features/authentication/UserAvatar";
+import HeaderMenu from "@/ui/HeaderMenu";
 
 const StyledHeader = styled.header`
 	background-color: var(--color-grey-0);
@@ -19,12 +20,18 @@ const StyledHeader = styled.header`
 	max-width: calc(100% - 26rem);
 	width: 100%;
 	z-index: 3;
+	display: flex;
+	gap: 2.4rem;
+	align-items: center;
+	justify-content: flex-end;
 `;
 
 export default function Header() {
 	return (
 		<StyledHeader>
-			<Logout />
+			<UserAvatar />
+
+			<HeaderMenu />
 		</StyledHeader>
 	);
 }
