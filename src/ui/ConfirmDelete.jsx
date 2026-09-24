@@ -1,6 +1,13 @@
+/**
+ * External dependencies.
+ */
 import styled from "styled-components";
-import Button from "./Button";
-import Heading from "./Heading";
+
+/**
+ * Internal dependencies.
+ */
+import Button from "@/ui/Button";
+import Heading from "@/ui/Heading";
 
 const StyledConfirmDelete = styled.div`
 	width: 40rem;

@@ -10,7 +10,7 @@ import { useCheckout } from "@/features/check-in-out/useCheckout";
 import Button from "@/ui/Button";
 
 function CheckoutButton({ bookingId }) {
-	const { checkout, isCheckingOut } = useCheckout();
+	const { checkout } = useCheckout();
 
 	return (
 		<Button

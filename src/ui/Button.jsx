@@ -1,4 +1,11 @@
+/**
+ * External dependencies.
+ */
 import styled, { css } from "styled-components";
+
+/**
+ * Internal dependencies.
+ */
 
 const sizes = {
 	small: css`

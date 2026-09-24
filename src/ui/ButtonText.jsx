@@ -1,4 +1,11 @@
+/**
+ * External dependencies.
+ */
 import styled from "styled-components";
+
+/**
+ * Internal dependencies.
+ */
 
 const ButtonText = styled.button`
 	color: var(--color-brand-600);

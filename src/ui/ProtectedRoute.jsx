@@ -1,7 +1,6 @@
 /**
  * External dependencies.
  */
-import { useUser } from "@/features/authentication/useUser";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
@@ -9,7 +8,7 @@ import styled from "styled-components";
 /**
  * Internal dependencies.
  */
-
+import { useUser } from "@/features/authentication/useUser";
 import Spinner from "@/ui/Spinner";
 
 const FullPage = styled.div`

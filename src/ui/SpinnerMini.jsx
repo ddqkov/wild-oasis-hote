@@ -1,5 +1,12 @@
-import styled, { keyframes } from "styled-components";
+/**
+ * External dependencies.
+ */
 import { BiLoaderAlt } from "react-icons/bi";
+import styled, { keyframes } from "styled-components";
+
+/**
+ * Internal dependencies.
+ */
 
 const rotate = keyframes`
   to {
@@ -8,9 +15,9 @@ const rotate = keyframes`
 `;
 
 const SpinnerMini = styled(BiLoaderAlt)`
-  width: 2.4rem;
-  height: 2.4rem;
-  animation: ${rotate} 1.5s infinite linear;
+	width: 2.4rem;
+	height: 2.4rem;
+	animation: ${rotate} 1.5s infinite linear;
 `;
 
 export default SpinnerMini;
