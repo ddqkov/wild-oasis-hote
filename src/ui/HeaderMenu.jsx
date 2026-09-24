@@ -11,6 +11,7 @@ import styled from "styled-components";
  */
 import Logout from "@/features/authentication/Logout";
 import ButtonIcon from "@/ui/ButtonIcon";
+import DarkModeToggle from "@/ui/DarkModeToggle";
 
 const StyledHeader = styled.ul`
 	display: flex;
@@ -26,6 +27,11 @@ export default function HeaderMenu() {
 					<HiOutlineUser />
 				</ButtonIcon>
 			</li>
+
+			<li>
+				<DarkModeToggle />
+			</li>
+
 			<li>
 				<Logout />
 			</li>
