@@ -11,6 +11,7 @@ import CheckoutButton from "@/features/check-in-out/CheckoutButton";
 import Button from "@/ui/Button";
 import ButtonGroup from "@/ui/ButtonGroup";
 import ButtonText from "@/ui/ButtonText";
+import Empty from "@/ui/Empty";
 import Heading from "@/ui/Heading";
 import Row from "@/ui/Row";
 import Spinner from "@/ui/Spinner";
@@ -33,6 +34,7 @@ function BookingDetail() {
 	const moveBack = useMoveBack();
 
 	if (isLoading) return <Spinner />;
+	if (!booking) return <Empty resource="booking" />;
 
 	const { status, id: bookingId } = booking;
 

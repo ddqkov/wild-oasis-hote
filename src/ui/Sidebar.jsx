@@ -6,7 +6,6 @@ import styled from "styled-components";
 /**
  * Internal dependencies.
  */
-import Uploader from "@/data/Uploader";
 import Logo from "@/ui/Logo";
 import MainNav from "@/ui/MainNav";
 
@@ -29,9 +28,9 @@ const StyledSidebar = styled.aside`
 export default function Sidebar() {
 	return (
 		<StyledSidebar>
-			<Logo></Logo>
-			<MainNav></MainNav>
-			<Uploader></Uploader>
+			<Logo />
+
+			<MainNav />
 		</StyledSidebar>
 	);
 }
