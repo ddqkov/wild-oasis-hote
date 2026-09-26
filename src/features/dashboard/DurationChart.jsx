@@ -1,11 +1,21 @@
 /**
  * External dependencies.
  */
+import Heading from "@/ui/Heading";
+import {
+	Cell,
+	Legend,
+	Pie,
+	PieChart,
+	ResponsiveContainer,
+	Tooltip,
+} from "recharts";
 import styled from "styled-components";
 
 /**
  * Internal dependencies.
  */
+import { useDarkMode } from "@/context/DarkModeContext";
 
 const ChartBox = styled.div`
 	/* Box */
@@ -25,116 +35,115 @@ const ChartBox = styled.div`
 	}
 `;
 
-const startDataLight = [
+const DURATION_BUCKETS = [
 	{
-		duration: "1 night",
-		value: 0,
-		color: "#ef4444",
+		label: "1 night",
+		light: "#ef4444",
+		dark: "#b91c1c",
+		test: (n) => n === 1,
 	},
 	{
-		duration: "2 nights",
-		value: 0,
-		color: "#f97316",
+		label: "2 nights",
+		light: "#f97316",
+		dark: "#c2410c",
+		test: (n) => n === 2,
 	},
 	{
-		duration: "3 nights",
-		value: 0,
-		color: "#eab308",
+		label: "3 nights",
+		light: "#eab308",
+		dark: "#a16207",
+		test: (n) => n === 3,
 	},
 	{
-		duration: "4-5 nights",
-		value: 0,
-		color: "#84cc16",
+		label: "4-5 nights",
+		light: "#84cc16",
+		dark: "#4d7c0f",
+		test: (n) => n >= 4 && n <= 5,
 	},
 	{
-		duration: "6-7 nights",
-		value: 0,
-		color: "#22c55e",
+		label: "6-7 nights",
+		light: "#22c55e",
+		dark: "#15803d",
+		test: (n) => n >= 6 && n <= 7,
 	},
 	{
-		duration: "8-14 nights",
-		value: 0,
-		color: "#14b8a6",
+		label: "8-14 nights",
+		light: "#14b8a6",
+		dark: "#0f766e",
+		test: (n) => n >= 8 && n <= 14,
 	},
 	{
-		duration: "15-21 nights",
-		value: 0,
-		color: "#3b82f6",
+		label: "15-21 nights",
+		light: "#3b82f6",
+		dark: "#1d4ed8",
+		test: (n) => n >= 15 && n <= 21,
 	},
 	{
-		duration: "21+ nights",
-		value: 0,
-		color: "#a855f7",
-	},
-];
-
-const startDataDark = [
-	{
-		duration: "1 night",
-		value: 0,
-		color: "#b91c1c",
-	},
-	{
-		duration: "2 nights",
-		value: 0,
-		color: "#c2410c",
-	},
-	{
-		duration: "3 nights",
-		value: 0,
-		color: "#a16207",
-	},
-	{
-		duration: "4-5 nights",
-		value: 0,
-		color: "#4d7c0f",
-	},
-	{
-		duration: "6-7 nights",
-		value: 0,
-		color: "#15803d",
-	},
-	{
-		duration: "8-14 nights",
-		value: 0,
-		color: "#0f766e",
-	},
-	{
-		duration: "15-21 nights",
-		value: 0,
-		color: "#1d4ed8",
-	},
-	{
-		duration: "21+ nights",
-		value: 0,
-		color: "#7e22ce",
+		label: "21+ nights",
+		light: "#a855f7",
+		dark: "#7e22ce",
+		test: (n) => n > 21,
 	},
 ];
 
-function prepareData(startData, stays) {
-	// A bit ugly code, but sometimes this is what it takes when working with real data 😅
+function prepareData(stays, isDarkMode) {
+	const counts = new Map(DURATION_BUCKETS.map((bucket) => [bucket.label, 0]));
 
-	function incArrayValue(arr, field) {
-		return arr.map((obj) =>
-			obj.duration === field ? { ...obj, value: obj.value + 1 } : obj,
-		);
+	for (const { numNights } of stays) {
+		const bucket = DURATION_BUCKETS.find((b) => b.test(numNights));
+		if (bucket) counts.set(bucket.label, counts.get(bucket.label) + 1);
 	}
 
-	const data = stays
-		.reduce((arr, cur) => {
-			const num = cur.numNights;
-			if (num === 1) return incArrayValue(arr, "1 night");
-			if (num === 2) return incArrayValue(arr, "2 nights");
-			if (num === 3) return incArrayValue(arr, "3 nights");
-			if ([4, 5].includes(num)) return incArrayValue(arr, "4-5 nights");
-			if ([6, 7].includes(num)) return incArrayValue(arr, "6-7 nights");
-			if (num >= 8 && num <= 14) return incArrayValue(arr, "8-14 nights");
-			if (num >= 15 && num <= 21)
-				return incArrayValue(arr, "15-21 nights");
-			if (num >= 21) return incArrayValue(arr, "21+ nights");
-			return arr;
-		}, startData)
-		.filter((obj) => obj.value > 0);
+	return DURATION_BUCKETS.filter(
+		(bucket) => counts.get(bucket.label) > 0,
+	).map((bucket) => ({
+		duration: bucket.label,
+		value: counts.get(bucket.label),
+		color: isDarkMode ? bucket.dark : bucket.light,
+	}));
+}
 
-	return data;
+export default function DurationChart({ confirmedStays }) {
+	const { darkModeToggle } = useDarkMode();
+
+	const data = prepareData(confirmedStays, darkModeToggle);
+
+	return (
+		<ChartBox>
+			<Heading as="h2">Stay duration summary</Heading>
+
+			<ResponsiveContainer>
+				<PieChart>
+					<Pie
+						data={data}
+						nameKey="duration"
+						dataKey="value"
+						innerRadius={85}
+						outerRadiusRadius={110}
+						cx="50%"
+						cy="50%"
+					>
+						{data.map((entry) => (
+							<Cell
+								key={entry.duration}
+								fill={entry.color}
+								stroke={entry.color}
+							/>
+						))}
+					</Pie>
+
+					<Tooltip />
+
+					<Legend
+						verticalAlign="middle"
+						align="right"
+						width="30%"
+						layout="vertical"
+						iconSize={14}
+						iconType="circle"
+					/>
+				</PieChart>
+			</ResponsiveContainer>
+		</ChartBox>
+	);
 }

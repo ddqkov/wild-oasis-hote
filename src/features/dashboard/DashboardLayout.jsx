@@ -7,6 +7,8 @@ import styled from "styled-components";
  * Internal dependencies.
  */
 import { useCabins } from "@/features/cabins/useCabins";
+import TodayActivity from "@/features/check-in-out/TodayActivity";
+import DurationChart from "@/features/dashboard/DurationChart";
 import SalesChart from "@/features/dashboard/SalesChart";
 import Stats from "@/features/dashboard/Stats";
 import useRecentBookings from "@/features/dashboard/useRecentBookings";
@@ -23,7 +25,6 @@ const StyledDashboardLayout = styled.div`
 export default function DashboardLayout() {
 	const { bookings, isLoading } = useRecentBookings();
 	const {
-		stays,
 		confirmedStays,
 		isLoading: isLoadingStays,
 		numDays,
@@ -40,6 +41,10 @@ export default function DashboardLayout() {
 				numDays={numDays}
 				cabinCount={cabins.length}
 			/>
+
+			<TodayActivity />
+
+			<DurationChart confirmedStays={confirmedStays} />
 
 			<SalesChart bookings={bookings} numDays={numDays} />
 		</StyledDashboardLayout>
