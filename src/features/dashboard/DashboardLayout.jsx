@@ -7,6 +7,7 @@ import styled from "styled-components";
  * Internal dependencies.
  */
 import { useCabins } from "@/features/cabins/useCabins";
+import SalesChart from "@/features/dashboard/SalesChart";
 import Stats from "@/features/dashboard/Stats";
 import useRecentBookings from "@/features/dashboard/useRecentBookings";
 import useRecentStays from "@/features/dashboard/useRecentStays";
@@ -38,7 +39,9 @@ export default function DashboardLayout() {
 				confirmedStays={confirmedStays}
 				numDays={numDays}
 				cabinCount={cabins.length}
-			></Stats>
+			/>
+
+			<SalesChart bookings={bookings} numDays={numDays} />
 		</StyledDashboardLayout>
 	);
 }
